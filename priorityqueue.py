@@ -22,7 +22,6 @@ class PriQueue(object):
         
     def add(self, new_node):
         newnode = QueueNode(new_node)
-        print("adding {}".format(newnode))
         if not self.head:
             # No head node, make head.
             self.head = newnode
@@ -53,7 +52,6 @@ class PriQueue(object):
                         temp.parent.child = newnode
                         newnode.parent = temp.parent
                     else:
-                        print("new head: {}".format(newnode))
                         self.head = newnode
                     temp.parent = newnode
                     newnode.child = temp
