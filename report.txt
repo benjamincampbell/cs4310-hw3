@@ -1,0 +1,57 @@
+CS4310 HW3 Report
+Benjamin M. Campbell
+
+The goal for this assignment was to learn about compressing
+a text file using the Huffmann algorithm. This consisted of
+gathering the count of how many times each character in the
+text file occured, and building a Huffmann Tree out of the
+results. The most-occuring characters would be near the top
+of the tree, and the least-occurring near the bottom. While
+traversing the tree, moving to a right child was represented
+by a 0 and moving to the left by a 1. Using this method, we
+could write a series of 0s and 1s that represented the text
+as encoded binary. Using this tree, we could then decode that
+binary into the original file.
+
+An example of simple input, a text file named "sample.txt"
+consisting of:
+-----------------------------
+dead beef
+-----------------------------
+
+Would result in the following output:
+
+-----------------------------
+e: 00
+d: 01
+b: 100
+f: 101
+a: 110
+space: 111
+
+0100110011111000000101
+
+dead beef
+-----------------------------
+
+The way that this decreases the size of the input is thus:
+Normally, a character in binary is 1 byte; a series of 8
+0s and 1s. There are 256 different combinations. Therefore,
+a file such as "dead beef" contains 9 characters and would
+be 9 x 8 (bits) = 72 bits long. Using this method, the most-
+occurring characters are represented by shorter traversals
+down the tree. 'e', in this case, is 00, and 'd' is 01. So
+two characters that previously were 8 bits each are now only 2.
+The entire string is now only 22 bits instead of 72. This is a
+huge decrease in size. This works better for smaller input sizes,
+where the traversals, in this case, are at most 3 bits long.
+
+I ran a few different sizes of inputs and averaged out the time of
+1000 runs for each of them:
+
+9 characters: .717 milliseconds
+81 (9^2) characters: 2.118 milliseconds
+729 (9^3) characters: 24.902 milliseconds
+
+296 characters: 7.479 milliseconds
+2233 characters: 38.638 milliseconds
