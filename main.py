@@ -1,7 +1,7 @@
 from compress import compress
+from decompress import decompress
 import sys
 
-with open(sys.argv[1], 'r') as f:
-    compress(f)
+key, code = compress(sys.argv[1])
     
-print('decompress')
+decompress(code, key)

@@ -8,7 +8,7 @@ class Node(object):
         self.right = None
         
     def __str__(self):
-        return "({}: {})".format(self.char, self.count)
+        return "{}: {}".format(self.char, self.count)
     
     def update_count(self):
         self.count = self.left.count + self.right.count

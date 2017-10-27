@@ -1,7 +1,9 @@
 from node import Node
 from priorityqueue import PriQueue
 
-def compress(f):
+def compress(filename):
+    
+    f = open(filename, 'r')
     # Get count of each letter
     counts = {}
     queue = PriQueue()
@@ -16,9 +18,11 @@ def compress(f):
     for key, value in counts.items():
         queue.add(Node(key, value))
         
-    key = huffify(queue)
+    key = huffify(queue) 
+    code = get_code(f, key)
+    f.close()
     
-    write_file(f, key)
+    return key, code
 
 def huffify(queue):
     while queue.size > 1:
@@ -33,7 +37,7 @@ def huffify(queue):
         queue.add(parent)
     return queue.head.node
 
-def write_file(f, key):
+def get_code(f, key):
     
     def find_path(node, char, path):
         if node.char:
@@ -41,12 +45,15 @@ def write_file(f, key):
                 return path
         else:
             f = find_path(node.left, char, path+"1")
-            f = find_path(node.right, char, path+"0")
             if f:
                 return f
+            else:
+                f = find_path(node.right, char, path+"0")
+                return f
     
-    print(find_path(key, 'e', ""))
     f.seek(0)
+    code = ""
     
-    for c in f:
-        print(c)
+    for c in f.read():
+        code += find_path(key, c, "")
+    return code

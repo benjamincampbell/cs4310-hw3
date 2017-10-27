@@ -1,1 +1,3 @@
-dead beef
+this is a TEST FILE with some caps
+in the test file and some NEW-LINE characters
+it's super cool; not the best. "definitely the worst"
